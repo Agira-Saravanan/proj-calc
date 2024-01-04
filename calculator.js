@@ -3,17 +3,19 @@ document.addEventListener('DOMContentLoaded', function () {
     let buttons = document.querySelectorAll('button');
     let string = "";
 
+    //click functionality
     buttons.forEach(button => {
         button.addEventListener('click', (e) => {
             handleButtonClick(e.target.innerHTML);
         });
     });
 
-//keyboard functionality
+    //keyboard functionality
     document.addEventListener('keydown', function (e) {
       handleKeyPress(e.key);
-  });
+    });
 
+    //this function used for click event functionality
     function handleButtonClick(value) {
         switch (value) {
             case '=':
@@ -31,8 +33,8 @@ document.addEventListener('DOMContentLoaded', function () {
         input.value = string;
     }
 
-//for this function used for keyboard functionality
-    function handleKeyPress(key) {
+   //for this function used for keyboard functionality
+   function handleKeyPress(key) { 
       // Check if the pressed key is a number, operator, or other valid input
       if (/[0-9+\-*/().%=]|Enter|Backspace/.test(key)) {
           if (key === 'Enter') {
@@ -44,10 +46,10 @@ document.addEventListener('DOMContentLoaded', function () {
           }
           input.value = string;
       }
-  }
+    }
 
 
-
+    //evaluate expression function 
     function evaluateExpression(expression) {
         try {
             // Use regular expression to allow only digits, operators, and parentheses
@@ -65,78 +67,74 @@ document.addEventListener('DOMContentLoaded', function () {
 
     //calculator operation
     function calculate(expression) {
-        // Split the expression into operands and operators 
-        const box = expression.match(/[+\-*/%.]|(?:\d+\.\d*|\d*\.\d+|\d+)/g);
+         // Split the expression into operands and operators 
+         const box = expression.match(/[+\-*/%.]|(?:\d+\.\d*|\d*\.\d+|\d+)/g);
 
-        if (!box) {
+         if (!box) {
             return 'Error';
-      }
+         }
 
-    var output = [];
-    var opr = [];
+         var output = [];
+         var opr = [];
  
-    var precedence = {
-      '+': 1,
-      '-': 1,
-      '*': 2,
-      '/': 2,
-      '%': 2,
-    };
+         var precedence = {
+             '+': 1,
+             '-': 1,
+             '*': 2,
+             '/': 2,
+             '%': 2,
+          };
  
-    box.forEach(function(element) {
-      if (element.match(/\d+(\.\d+)?/)) {
-        output.push(parseFloat(element)); 
-      }
-       else if (element in precedence) {
-        while ( opr.length > 0 &&  precedence[opr[opr.length - 1]] >= precedence[element]) {
-          output.push(opr.pop()); 
-        }
-        opr.push(element);
-      }
-    });
+          box.forEach(function(element) {
+              if (element.match(/\d+(\.\d+)?/)) {
+                  output.push(parseFloat(element)); 
+              }else if (element in precedence) {
+                 while ( opr.length > 0 &&  precedence[opr[opr.length - 1]] >= precedence[element]) {
+                      output.push(opr.pop()); 
+                  }
+                  opr.push(element);
+              }
+          });
  
-    while (opr.length > 0) {
-      output.push(opr.pop());
-    }
- 
-    
- 
-    var result1= [];
-    output.forEach(function(element) {
+          while (opr.length > 0) {
+              output.push(opr.pop());
+          }
+  
+          var evaluatedValues= [];
+          output.forEach(function(element) {
       
-      if (typeof element === 'number') {
-        result1.push(element);
-      } else {
-        var opnd2 = result1.pop();
-        var opnd1 = result1.pop();
+              if (typeof element === 'number') {
+                  evaluatedValues.push(element);
+              } else {
+                  var opnd2 = evaluatedValues.pop();
+                  var opnd1 = evaluatedValues.pop();
  
-        switch (element) {
-          case '+':
-            result1.push(opnd1 + opnd2);
-            
-            break;
-          case '-':
-            result1.push(opnd1 - opnd2);
-            break;
-          case '*':
-            result1.push(opnd1 * opnd2);
-            break;
-          case '/':
-            if (opnd2 === 0) {
-              throw new Error('Division by zero');
-            }
-            result1.push(opnd1 / opnd2);
-            break;
-        }
-      }
-    });
+                  switch (element) {
+                      case '+':
+                          evaluatedValues.push(opnd1 + opnd2);
+                          break;
+                      case '-':
+                          evaluatedValues.push(opnd1 - opnd2);
+                          break;
+                      case '*':
+                          evaluatedValues.push(opnd1 * opnd2);
+                          break;
+                      case '/':
+                          if (opnd2 === 0) {
+                              throw new Error('Division by zero');
+                          }
+                          evaluatedValues.push(opnd1 / opnd2);
+                          break;
+                   }
+                }     
+          });
  
-    if (result1.length !== 1) {
-      throw new Error('Invalid expression');
-    }
+          if (evaluatedValues.length !== 1) {
+               throw new Error('Invalid expression');
+          }
 
-    return result1[0];
-  }
+          return evaluatedValues;
+    }
  
 });
 
