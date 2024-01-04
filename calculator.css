@@ -1,8 +1,8 @@
 *{
-    margin:0;
-    padding:0;
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
-    font-family:'popins';
+    font-family: 'popins';
 }  
 
 
@@ -15,21 +15,21 @@ header{
 
 a{
     margin: 0px 20px  0px 20px;
-    color:rgb(204, 8, 8);
+    color: rgb(204, 8, 8);
 }
 
 
 footer{
-    background-color:whitesmoke;
+    background-color: whitesmoke;
     margin-top: auto;
     justify-content: center;
-    text-align:center ;
+    text-align: center ;
 }
 
 body{
     background-image: url(pexels-aleksandar-pasaric-1694000.jpg);
-    background-size:cover ;
-    height:auto;
+    background-size: cover;
+    height: auto;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
@@ -39,14 +39,13 @@ main{
     margin:180px auto;
 }
 
-
 .calculator{
     border: 1px solid #bed2fa;
     padding: 20px;
     border-radius: 10px;
-    /* background:transparent; */
+    /* background: transparent; */
     background-color: rgb(6, 245, 173);
-    box-shadow:0px 3px 40px rgba(113, 115,119,0.5);
+    box-shadow: 0px 3px 40px rgba(113, 115,119,0.5);
 
 }
 
@@ -61,33 +60,31 @@ input{
     text-align: right;
     cursor: pointer;
     color: #0a0101fb;
-} 
-
-
+}
 
 button{
-    border:none;
-    width:60px;
+    border: none;
+    width: 60px;
     height: 60px;
     margin: 10px;
     border-radius: 50px;
     /* background: transparent; */
-    color:#050505;
+    color: #050505;
     font-size: 20px;
     box-shadow: -8px -8px 15px rgba(20, 8, 8, 0.5);
-    cursor:pointer;
+    cursor: pointer;
 }
 
 button:hover{
-background-color:rgba(101, 241, 20, 0.6);
+    background-color: rgba(101, 241, 20, 0.6);
 }
 
 .operator{
-    color:rgba(255, 7, 7, 0.911);
+    color: rgba(255, 7, 7, 0.911);
 }
 
 /* this anchor tag is used for footer mail id */
 div a{
-    background-color:rgb(163, 159, 159);
-    color:black;
-} 
+    background-color: rgb(163, 159, 159);
+    color: black;
+}
