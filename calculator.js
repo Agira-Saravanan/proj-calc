@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 string = "";
                 break;
             case 'DEL':
-                string = string.substr(0, string.length-1);
+                string = string.substring(0, string.length-1);
                 break;
             default:
                 string += value;
@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function () {
           if (key === 'Enter') {
               string = evaluateExpression(string);
           } else if (key === 'Backspace') {
-              string = string.substr(0, string.length - 1);
+              string = string.substring(0, string.length - 1);
           } else {
               string += key;
           }
@@ -65,10 +65,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
     //calculator operation
     function calculate(expression) {
-        // Split the expression into operands and operators
-        const tokens = expression.match(/[+\-*/%.]|(?:\d+\.\d*|\d*\.\d+|\d+)/g);
+        // Split the expression into operands and operators 
+        const box = expression.match(/[+\-*/%.]|(?:\d+\.\d*|\d*\.\d+|\d+)/g);
 
-        if (!tokens) {
+        if (!box) {
             return 'Error';
       }
 
@@ -80,17 +80,18 @@ document.addEventListener('DOMContentLoaded', function () {
       '-': 1,
       '*': 2,
       '/': 2,
+      '%': 2,
     };
  
-    tokens.forEach(function(token) {
-      if (token.match(/\d+(\.\d+)?/)) {
-        output.push(parseFloat(token)); 
+    box.forEach(function(element) {
+      if (element.match(/\d+(\.\d+)?/)) {
+        output.push(parseFloat(element)); 
       }
-       else if (token in precedence) {
-        while ( opr.length > 0 &&  precedence[opr[opr.length - 1]] >= precedence[token]) {
+       else if (element in precedence) {
+        while ( opr.length > 0 &&  precedence[opr[opr.length - 1]] >= precedence[element]) {
           output.push(opr.pop()); 
         }
-        opr.push(token);
+        opr.push(element);
       }
     });
  
@@ -100,41 +101,41 @@ document.addEventListener('DOMContentLoaded', function () {
  
     
  
-    var resultStack = [];
-    output.forEach(function(token) {
+    var result1= [];
+    output.forEach(function(element) {
       
-      if (typeof token === 'number') {
-        resultStack.push(token);
+      if (typeof element === 'number') {
+        result1.push(element);
       } else {
-        var opnd2 = resultStack.pop();
-        var opnd1 = resultStack.pop();
+        var opnd2 = result1.pop();
+        var opnd1 = result1.pop();
  
-        switch (token) {
+        switch (element) {
           case '+':
-            resultStack.push(opnd1 + opnd2);
+            result1.push(opnd1 + opnd2);
             
             break;
           case '-':
-            resultStack.push(opnd1 - opnd2);
+            result1.push(opnd1 - opnd2);
             break;
           case '*':
-            resultStack.push(opnd1 * opnd2);
+            result1.push(opnd1 * opnd2);
             break;
           case '/':
             if (opnd2 === 0) {
               throw new Error('Division by zero');
             }
-            resultStack.push(opnd1 / opnd2);
+            result1.push(opnd1 / opnd2);
             break;
         }
       }
     });
  
-    if (resultStack.length !== 1) {
+    if (result1.length !== 1) {
       throw new Error('Invalid expression');
     }
 
-    return resultStack[0];
+    return result1[0];
   }
  
 });
